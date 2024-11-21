@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - CloverClothes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">CloverClothes</a>
+            <label for="nav-toggle" class="navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+            </label>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <div class="navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/category/men">Men</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/category/women">Women</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/category/accessories">Accessories</a>
+                    </li>
+                </ul>
+                <form class="d-flex" action="/search" method="get">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Search products..." required>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Form -->
+    <div class="container my-5">
+        <h1 class="mb-4">Contact Us</h1>
+        {% if product %}
+        <div class="alert alert-info">
+            Inquiring about: {{ product.name }} - ${{ "%.2f"|format(product.price) }}
+        </div>
+        {% endif %}
+        <form action="/contact" method="post" class="mb-4">
+            {% if product %}
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <input type="hidden" name="product_name" value="{{ product.name }}">
+            <input type="hidden" name="product_price" value="{{ product.price }}">
+            {% endif %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Your Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="4" required>{% if product %}I'm interested in purchasing {{ product.name }}.{% endif %}</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Send Message</button>
+            <a href="/" class="btn btn-outline-secondary">Back to Products</a>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 CloverClothes. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
