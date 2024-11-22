@@ -49,14 +49,14 @@ PRODUCTS = [
         "name": "Character Design Package",
         "category": "cartooning",
         "price": 199.99,
-        "description": "Custom character design and digital illustration."
+        "description": "Custom character design and illustration service."
     },
     {
         "id": 6,
-        "name": "Summer Collection",
+        "name": "Ready-to-Wear Collection",
         "category": "clothes",
-        "price": 129.99,
-        "description": "Ready-to-wear summer fashion collection."
+        "price": 299.99,
+        "description": "Premium ready-to-wear clothing collection."
     }
 ]
 
@@ -67,9 +67,8 @@ async def home(request: Request):
         "index.html",
         {
             "request": request,
-            "products": PRODUCTS[:3],  # Show first 3 products as featured
-            "category": None,  # No category filter on home page
-            "cart_count": 0  # To be implemented with session management
+            "products": PRODUCTS[:6],
+            "cart_count": 0
         }
     )
 
@@ -100,7 +99,7 @@ async def products(
             "products": filtered_products,
             "category": category,
             "search_query": q,
-            "cart_count": 0  # To be implemented with session management
+            "cart_count": 0
         }
     )
 
@@ -110,25 +109,12 @@ async def search(
     q: str = Query(..., description="Search query")
 ):
     """Search products by name and description"""
-    filtered_products = [
-        p for p in PRODUCTS 
-        if q.lower() in p["name"].lower() or q.lower() in p["description"].lower()
-    ]
-    return templates.TemplateResponse(
-        "products.html",
-        {
-            "request": request,
-            "products": filtered_products,
-            "category": None,
-            "search_query": q,
-            "cart_count": 0  # To be implemented with session management
-        }
-    )
+    return await products(request, q=q)
 
 @app.post("/add-to-cart/{product_id}")
 async def add_to_cart(product_id: int):
     """Add a product to the cart (to be implemented with session management)"""
-    return RedirectResponse(url="/products", status_code=303)
+    return {"message": f"Added product {product_id} to cart"}
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
