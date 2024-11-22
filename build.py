@@ -1,80 +1,123 @@
-from pathlib import Path
+import os
 import shutil
 import json
 from jinja2 import Environment, FileSystemLoader
-from app.main import PRODUCTS
 
-# Setup Jinja2 environment
-env = Environment(loader=FileSystemLoader('templates'))
+# Configuration
+DOCS_DIR = "docs"
+STATIC_DIR = "static"
+TEMPLATES_DIR = "templates"
+BASE_URL = "/Bespoke-attire"
 
-# Create docs directory
-BUILD_DIR = Path('docs')
-if BUILD_DIR.exists():
-    shutil.rmtree(BUILD_DIR)
-BUILD_DIR.mkdir()
+# Sample product data
+products = [
+    {
+        "id": 1,
+        "name": "Premium Cotton Fabric",
+        "description": "High-quality cotton fabric perfect for summer wear",
+        "category": "fabrics",
+        "price": 15.99,
+        "image": f"{BASE_URL}/static/images/cotton.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Custom Dress Design",
+        "description": "Professional dress design consultation",
+        "category": "design",
+        "price": 99.99,
+        "image": f"{BASE_URL}/static/images/dress-design.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Character Illustration",
+        "description": "Custom character design and illustration",
+        "category": "cartooning",
+        "price": 49.99,
+        "image": f"{BASE_URL}/static/images/character.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Suit Tailoring",
+        "description": "Professional suit alteration service",
+        "category": "tailoring",
+        "price": 149.99,
+        "image": f"{BASE_URL}/static/images/suit.jpg"
+    }
+]
 
-# Create static directories
-STATIC_DIR = BUILD_DIR / 'static'
-(STATIC_DIR / 'css').mkdir(parents=True)
-(STATIC_DIR / 'images').mkdir(parents=True)
+def ensure_dir(directory):
+    """Ensure directory exists, create if it doesn't"""
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
-# Copy static files
-shutil.copy('static/css/style.css', STATIC_DIR / 'css' / 'style.css')
-shutil.copy('static/images/hero-bg.jpg', STATIC_DIR / 'images' / 'hero-bg.jpg')
-shutil.copy('static/images/placeholder.jpg', STATIC_DIR / 'images' / 'placeholder.jpg')
+def copy_static_files():
+    """Copy static files to docs directory"""
+    docs_static = os.path.join(DOCS_DIR, "static")
+    if os.path.exists(docs_static):
+        shutil.rmtree(docs_static)
+    shutil.copytree(STATIC_DIR, docs_static)
 
-# Helper function to simulate url_for in templates
+def generate_products_json():
+    """Generate products.json file"""
+    with open(os.path.join(DOCS_DIR, "products.json"), "w") as f:
+        json.dump(products, f, indent=2)
+
 def url_for(endpoint, **kwargs):
+    """Simulate FastAPI's url_for function for static site generation"""
     if endpoint == 'static':
-        return f"/Bespoke-attire/static/{kwargs['path']}"
-    return '/Bespoke-attire/'
+        return f"{BASE_URL}/static/{kwargs['path']}"
+    return f"{BASE_URL}/"
 
-# Generate index.html
-template = env.get_template('index.html')
-html = template.render(
-    request={},  # Dummy request object
-    products=PRODUCTS[:3],  # Featured products
-    category=None,
-    cart_count=0,
-    url_for=url_for
-)
-with open(BUILD_DIR / 'index.html', 'w', encoding='utf-8') as f:
-    f.write(html)
-
-# Generate products.html for each category
-categories = ['fabrics', 'clothes', 'design', 'cartooning', 'tailoring']
-template = env.get_template('products.html')
-
-# All products page
-products_dir = BUILD_DIR / 'products'
-products_dir.mkdir(exist_ok=True)
-html = template.render(
-    request={},
-    products=PRODUCTS,
-    category=None,
-    cart_count=0,
-    url_for=url_for
-)
-with open(products_dir / 'index.html', 'w', encoding='utf-8') as f:
-    f.write(html)
-
-# Category pages
-for category in categories:
-    category_dir = products_dir / category
-    category_dir.mkdir(exist_ok=True)
-    filtered_products = [p for p in PRODUCTS if p['category'] == category]
-    html = template.render(
-        request={},
-        products=filtered_products,
-        category=category,
-        cart_count=0,
-        url_for=url_for
-    )
-    with open(category_dir / 'index.html', 'w', encoding='utf-8') as f:
+def render_template(template_name, context, output_path):
+    """Render a template with given context to output path"""
+    env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
+    template = env.get_template(template_name)
+    
+    # Add BASE_URL and url_for to context
+    context["BASE_URL"] = BASE_URL
+    context["url_for"] = url_for
+    
+    html = template.render(**context)
+    
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(html)
 
-# Generate products.json for search functionality
-with open(BUILD_DIR / 'products.json', 'w', encoding='utf-8') as f:
-    json.dump(PRODUCTS, f)
+def build_site():
+    """Build the static site"""
+    # Ensure docs directory exists
+    ensure_dir(DOCS_DIR)
+    ensure_dir(os.path.join(DOCS_DIR, "products"))
+    
+    # Copy static files
+    copy_static_files()
+    
+    # Generate products.json
+    generate_products_json()
+    
+    # Render index page
+    render_template(
+        "index.html",
+        {"products": products},
+        os.path.join(DOCS_DIR, "index.html")
+    )
+    
+    # Render products page
+    render_template(
+        "products.html",
+        {"products": products},
+        os.path.join(DOCS_DIR, "products", "index.html")
+    )
+    
+    # Render category pages
+    categories = set(p["category"] for p in products)
+    for category in categories:
+        category_products = [p for p in products if p["category"] == category]
+        render_template(
+            "products.html",
+            {"products": category_products, "category": category},
+            os.path.join(DOCS_DIR, "products", f"{category}.html")
+        )
 
-print("Static site generated successfully in the 'docs' directory")
+if __name__ == "__main__":
+    build_site()
+    print("Static site built successfully in docs directory")

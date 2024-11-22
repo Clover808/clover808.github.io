@@ -10,7 +10,7 @@
     <script>
         // Load products data for search functionality
         let allProducts = [];
-        fetch('/cloverclothes-fastapi/products.json')
+        fetch('/Bespoke-attire/products.json')
             .then(response => response.json())
             .then(data => {
                 allProducts = data;
@@ -72,13 +72,33 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/cloverclothes-fastapi/">Clover Clothes</a>
+            <a class="navbar-brand" href="/Bespoke-attire/">Clover Clothes</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="d-flex align-items-center ms-auto">
-                    <form action="/cloverclothes-fastapi/search" method="GET" id="search-form" class="d-flex align-items-center me-3">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bespoke-attire/products">All Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bespoke-attire/products/fabrics">Fabrics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bespoke-attire/products/clothes">Clothes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bespoke-attire/products/design">Fashion Design</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bespoke-attire/products/cartooning">Cartooning</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Bespoke-attire/products/tailoring">Tailoring</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <form action="/Bespoke-attire/search" method="GET" id="search-form" class="d-flex align-items-center me-3">
                         <div class="search-bar">
                             <input type="text" id="search-input" class="form-control" name="q" placeholder="Search products...">
                             <button type="submit" class="btn">
@@ -86,11 +106,11 @@
                             </button>
                         </div>
                     </form>
-                    <a href="/cloverclothes-fastapi/cart" class="btn btn-outline-success me-2">
+                    <a href="/Bespoke-attire/cart" class="btn btn-outline-success me-2">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-badge">{{ cart_count if cart_count else 0 }}</span>
                     </a>
-                    <a href="/cloverclothes-fastapi/login" class="btn btn-success">
+                    <a href="/Bespoke-attire/login" class="btn btn-success">
                         <i class="fas fa-user"></i> Login
                     </a>
                 </div>

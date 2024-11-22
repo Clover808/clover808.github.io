@@ -1,1 +1,34 @@
-[{"id": 1, "name": "Premium Cotton Fabric", "category": "fabrics", "price": 29.99, "description": "High-quality cotton fabric perfect for summer wear."}, {"id": 2, "name": "Custom Design Service", "category": "design", "price": 149.99, "description": "Professional fashion design consultation and sketching."}, {"id": 3, "name": "Expert Tailoring Service", "category": "tailoring", "price": 49.99, "description": "Professional clothing alterations and custom fitting."}, {"id": 4, "name": "Silk Fabric Collection", "category": "fabrics", "price": 89.99, "description": "Luxurious silk fabrics in various patterns."}, {"id": 5, "name": "Character Design Package", "category": "cartooning", "price": 199.99, "description": "Custom character design and digital illustration."}, {"id": 6, "name": "Summer Collection", "category": "clothes", "price": 129.99, "description": "Ready-to-wear summer fashion collection."}]
+[
+  {
+    "id": 1,
+    "name": "Premium Cotton Fabric",
+    "description": "High-quality cotton fabric perfect for summer wear",
+    "category": "fabrics",
+    "price": 15.99,
+    "image": "/Bespoke-attire/static/images/cotton.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Custom Dress Design",
+    "description": "Professional dress design consultation",
+    "category": "design",
+    "price": 99.99,
+    "image": "/Bespoke-attire/static/images/dress-design.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Character Illustration",
+    "description": "Custom character design and illustration",
+    "category": "cartooning",
+    "price": 49.99,
+    "image": "/Bespoke-attire/static/images/character.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Suit Tailoring",
+    "description": "Professional suit alteration service",
+    "category": "tailoring",
+    "price": 149.99,
+    "image": "/Bespoke-attire/static/images/suit.jpg"
+  }
+]
