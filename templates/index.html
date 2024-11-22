@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 mb-4">Welcome to Clover Clothes</h1>
+            <p class="lead mb-4">Your one-stop shop for fabrics, fashion design, and tailoring services</p>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form action="/search" method="GET">
+                        <div class="search-bar">
+                            <input type="text" name="q" class="form-control form-control-lg" placeholder="What are you looking for?">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-search search-icon"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filters -->
+    <section class="container mb-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center flex-wrap gap-2">
+                    <a href="/products" class="btn btn-outline-success category-filter-btn {% if not category %}active{% endif %}">All</a>
+                    <a href="/products?category=fabrics" class="btn btn-outline-success category-filter-btn {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
+                    <a href="/products?category=clothes" class="btn btn-outline-success category-filter-btn {% if category == 'clothes' %}active{% endif %}">Clothes</a>
+                    <a href="/products?category=design" class="btn btn-outline-success category-filter-btn {% if category == 'design' %}active{% endif %}">Design</a>
+                    <a href="/products?category=cartooning" class="btn btn-outline-success category-filter-btn {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
+                    <a href="/products?category=tailoring" class="btn btn-outline-success category-filter-btn {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="container mb-5">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card product-card" data-category="{{ product.category }}" data-price="{{ product.price }}">
+                    <img src="{{ url_for('static', path='images/placeholder.jpg') }}" class="card-img-top product-image" alt="{{ product.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">High-quality {{ product.category }} for your needs.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 mb-0">${{ "%.2f"|format(product.price) }}</span>
+                            <form method="POST" action="/add-to-cart/{{ product.id }}">
+                                <button type="submit" class="btn btn-success">
+                                    {% if product.category in ['design', 'tailoring'] %}Book Now{% else %}Add to Cart{% endif %}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

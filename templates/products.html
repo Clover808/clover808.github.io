@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="category-filters mb-4">
+                <a href="/products" class="btn btn-outline-primary {% if not category %}active{% endif %}">All</a>
+                <a href="/products/fabrics" class="btn btn-outline-primary {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
+                <a href="/products/clothes" class="btn btn-outline-primary {% if category == 'clothes' %}active{% endif %}">Clothes</a>
+                <a href="/products/design" class="btn btn-outline-primary {% if category == 'design' %}active{% endif %}">Design</a>
+                <a href="/products/cartooning" class="btn btn-outline-primary {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
+                <a href="/products/tailoring" class="btn btn-outline-primary {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="products-container">
+        {% for product in products %}
+        <div class="col-md-4 mb-4 fade-in">
+            <div class="card h-100">
+                <img src="{{ url_for('static', path=product.image) }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <button class="btn btn-primary">{% if product.category == 'design' %}Book Now{% else %}Add to Cart{% endif %}</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if not products %}
+        <p class="text-center">No products found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
