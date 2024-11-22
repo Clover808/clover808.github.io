@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-12">
             <div class="category-filters mb-4">
-                <a href="/products" class="btn btn-outline-primary {% if not category %}active{% endif %}">All</a>
-                <a href="/products/fabrics" class="btn btn-outline-primary {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
-                <a href="/products/clothes" class="btn btn-outline-primary {% if category == 'clothes' %}active{% endif %}">Clothes</a>
-                <a href="/products/design" class="btn btn-outline-primary {% if category == 'design' %}active{% endif %}">Design</a>
-                <a href="/products/cartooning" class="btn btn-outline-primary {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
-                <a href="/products/tailoring" class="btn btn-outline-primary {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
+                <a href="/cloverclothes-fastapi/products" class="btn btn-outline-success {% if not category %}active{% endif %}">All Products</a>
+                <a href="/cloverclothes-fastapi/products?category=fabrics" class="btn btn-outline-success {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
+                <a href="/cloverclothes-fastapi/products?category=clothes" class="btn btn-outline-success {% if category == 'clothes' %}active{% endif %}">Clothes</a>
+                <a href="/cloverclothes-fastapi/products?category=design" class="btn btn-outline-success {% if category == 'design' %}active{% endif %}">Fashion Design</a>
+                <a href="/cloverclothes-fastapi/products?category=cartooning" class="btn btn-outline-success {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
+                <a href="/cloverclothes-fastapi/products?category=tailoring" class="btn btn-outline-success {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
             </div>
         </div>
     </div>
@@ -19,11 +19,17 @@
         {% for product in products %}
         <div class="col-md-4 mb-4 fade-in">
             <div class="card h-100">
-                <img src="{{ url_for('static', path=product.image) }}" class="card-img-top" alt="{{ product.name }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description }}</p>
-                    <button class="btn btn-primary">{% if product.category == 'design' %}Book Now{% else %}Add to Cart{% endif %}</button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0">${{ "%.2f"|format(product.price) }}</span>
+                        <form method="POST" action="/cloverclothes-fastapi/add-to-cart/{{ product.id }}">
+                            <button type="submit" class="btn btn-success">
+                                {% if product.category in ['design', 'tailoring'] %}Book Now{% else %}Add to Cart{% endif %}
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
