@@ -7,8 +7,8 @@ from app.main import PRODUCTS
 # Setup Jinja2 environment
 env = Environment(loader=FileSystemLoader('templates'))
 
-# Create build directory
-BUILD_DIR = Path('build')
+# Create docs directory
+BUILD_DIR = Path('docs')
 if BUILD_DIR.exists():
     shutil.rmtree(BUILD_DIR)
 BUILD_DIR.mkdir()
@@ -26,8 +26,8 @@ shutil.copy('static/images/placeholder.jpg', STATIC_DIR / 'images' / 'placeholde
 # Helper function to simulate url_for in templates
 def url_for(endpoint, **kwargs):
     if endpoint == 'static':
-        return f"/static/{kwargs['path']}"
-    return '/'
+        return f"/Bespoke-attire/static/{kwargs['path']}"
+    return '/Bespoke-attire/'
 
 # Generate index.html
 template = env.get_template('index.html')
@@ -77,4 +77,4 @@ for category in categories:
 with open(BUILD_DIR / 'products.json', 'w', encoding='utf-8') as f:
     json.dump(PRODUCTS, f)
 
-print("Static site generated successfully in the 'build' directory")
+print("Static site generated successfully in the 'docs' directory")
