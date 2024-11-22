@@ -6,13 +6,16 @@ from typing import Optional
 import uvicorn
 import os
 
+# Get the absolute path to the project root
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 app = FastAPI(title="Clover Clothes")
 
-# Mount static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
+# Mount static files with absolute path
+app.mount("/static", StaticFiles(directory=os.path.join(ROOT_DIR, "static")), name="static")
 
-# Configure templates
-templates = Jinja2Templates(directory="templates")
+# Configure templates with absolute path
+templates = Jinja2Templates(directory=os.path.join(ROOT_DIR, "templates"))
 
 # Sample product data (to be replaced with database later)
 PRODUCTS = [

@@ -17,7 +17,7 @@ products = [
         "description": "High-quality cotton fabric perfect for summer wear",
         "category": "fabrics",
         "price": 15.99,
-        "image": f"{BASE_URL}/static/images/cotton.jpg"
+        "image": f"{BASE_URL}/static/images/placeholder.jpg"
     },
     {
         "id": 2,
@@ -25,7 +25,7 @@ products = [
         "description": "Professional dress design consultation",
         "category": "design",
         "price": 99.99,
-        "image": f"{BASE_URL}/static/images/dress-design.jpg"
+        "image": f"{BASE_URL}/static/images/placeholder.jpg"
     },
     {
         "id": 3,
@@ -33,7 +33,7 @@ products = [
         "description": "Custom character design and illustration",
         "category": "cartooning",
         "price": 49.99,
-        "image": f"{BASE_URL}/static/images/character.jpg"
+        "image": f"{BASE_URL}/static/images/placeholder.jpg"
     },
     {
         "id": 4,
@@ -41,7 +41,15 @@ products = [
         "description": "Professional suit alteration service",
         "category": "tailoring",
         "price": 149.99,
-        "image": f"{BASE_URL}/static/images/suit.jpg"
+        "image": f"{BASE_URL}/static/images/placeholder.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Designer Clothes",
+        "description": "Ready-to-wear designer clothing collection",
+        "category": "clothes",
+        "price": 199.99,
+        "image": f"{BASE_URL}/static/images/placeholder.jpg"
     }
 ]
 
@@ -76,6 +84,7 @@ def render_template(template_name, context, output_path):
     # Add BASE_URL and url_for to context
     context["BASE_URL"] = BASE_URL
     context["url_for"] = url_for
+    context["cart_count"] = 0  # Default cart count for static site
     
     html = template.render(**context)
     
@@ -84,6 +93,10 @@ def render_template(template_name, context, output_path):
 
 def build_site():
     """Build the static site"""
+    # Clean up existing docs directory
+    if os.path.exists(DOCS_DIR):
+        shutil.rmtree(DOCS_DIR)
+    
     # Ensure docs directory exists
     ensure_dir(DOCS_DIR)
     ensure_dir(os.path.join(DOCS_DIR, "products"))
@@ -101,21 +114,35 @@ def build_site():
         os.path.join(DOCS_DIR, "index.html")
     )
     
-    # Render products page
+    # Render main products page
     render_template(
         "products.html",
-        {"products": products},
+        {"products": products, "category": None},
         os.path.join(DOCS_DIR, "products", "index.html")
     )
     
     # Render category pages
     categories = set(p["category"] for p in products)
     for category in categories:
+        # Create category directory
+        category_dir = os.path.join(DOCS_DIR, "products", category)
+        ensure_dir(category_dir)
+        
+        # Filter products for this category
         category_products = [p for p in products if p["category"] == category]
+        
+        # Generate category page
         render_template(
             "products.html",
             {"products": category_products, "category": category},
             os.path.join(DOCS_DIR, "products", f"{category}.html")
+        )
+        
+        # Generate category index page
+        render_template(
+            "products.html",
+            {"products": category_products, "category": category},
+            os.path.join(category_dir, "index.html")
         )
 
 if __name__ == "__main__":

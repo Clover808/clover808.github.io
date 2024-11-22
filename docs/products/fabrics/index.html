@@ -123,12 +123,12 @@
     <div class="row">
         <div class="col-12">
             <div class="category-filters mb-4">
-                <a href="/products" class="btn btn-outline-primary ">All</a>
-                <a href="/products/fabrics" class="btn btn-outline-primary active">Fabrics</a>
-                <a href="/products/clothes" class="btn btn-outline-primary ">Clothes</a>
-                <a href="/products/design" class="btn btn-outline-primary ">Design</a>
-                <a href="/products/cartooning" class="btn btn-outline-primary ">Cartooning</a>
-                <a href="/products/tailoring" class="btn btn-outline-primary ">Tailoring</a>
+                <a href="/products" class="btn btn-outline-success ">All Products</a>
+                <a href="/products?category=fabrics" class="btn btn-outline-success active">Fabrics</a>
+                <a href="/products?category=clothes" class="btn btn-outline-success ">Clothes</a>
+                <a href="/products?category=design" class="btn btn-outline-success ">Fashion Design</a>
+                <a href="/products?category=cartooning" class="btn btn-outline-success ">Cartooning</a>
+                <a href="/products?category=tailoring" class="btn btn-outline-success ">Tailoring</a>
             </div>
         </div>
     </div>
@@ -137,22 +137,17 @@
         
         <div class="col-md-4 mb-4 fade-in">
             <div class="card h-100">
-                <img src="/Bespoke-attire/static/" class="card-img-top" alt="Premium Cotton Fabric">
                 <div class="card-body">
                     <h5 class="card-title">Premium Cotton Fabric</h5>
-                    <p class="card-text">High-quality cotton fabric perfect for summer wear.</p>
-                    <button class="btn btn-primary">Add to Cart</button>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-md-4 mb-4 fade-in">
-            <div class="card h-100">
-                <img src="/Bespoke-attire/static/" class="card-img-top" alt="Silk Fabric Collection">
-                <div class="card-body">
-                    <h5 class="card-title">Silk Fabric Collection</h5>
-                    <p class="card-text">Luxurious silk fabrics in various patterns.</p>
-                    <button class="btn btn-primary">Add to Cart</button>
+                    <p class="card-text">High-quality cotton fabric perfect for summer wear</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0">$15.99</span>
+                        <form method="POST" action="/add-to-cart/1">
+                            <button type="submit" class="btn btn-success">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

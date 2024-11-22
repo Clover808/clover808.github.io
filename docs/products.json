@@ -5,7 +5,7 @@
     "description": "High-quality cotton fabric perfect for summer wear",
     "category": "fabrics",
     "price": 15.99,
-    "image": "/Bespoke-attire/static/images/cotton.jpg"
+    "image": "/Bespoke-attire/static/images/placeholder.jpg"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "description": "Professional dress design consultation",
     "category": "design",
     "price": 99.99,
-    "image": "/Bespoke-attire/static/images/dress-design.jpg"
+    "image": "/Bespoke-attire/static/images/placeholder.jpg"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "description": "Custom character design and illustration",
     "category": "cartooning",
     "price": 49.99,
-    "image": "/Bespoke-attire/static/images/character.jpg"
+    "image": "/Bespoke-attire/static/images/placeholder.jpg"
   },
   {
     "id": 4,
@@ -29,6 +29,14 @@
     "description": "Professional suit alteration service",
     "category": "tailoring",
     "price": 149.99,
-    "image": "/Bespoke-attire/static/images/suit.jpg"
+    "image": "/Bespoke-attire/static/images/placeholder.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Designer Clothes",
+    "description": "Ready-to-wear designer clothing collection",
+    "category": "clothes",
+    "price": 199.99,
+    "image": "/Bespoke-attire/static/images/placeholder.jpg"
   }
 ]
