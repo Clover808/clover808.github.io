@@ -80,14 +80,6 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
                 <div class="d-flex align-items-center">
-                    <form action="/search" method="GET" id="search-form" class="d-flex align-items-center me-3">
-                        <div class="search-bar">
-                            <input type="text" id="search-input" class="form-control" name="q" placeholder="Search products...">
-                            <button type="submit" class="btn">
-                                <i class="fas fa-search search-icon"></i>
-                            </button>
-                        </div>
-                    </form>
                     <a href="/cart" class="btn btn-outline-success me-2">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-badge">{{ cart_count if cart_count else 0 }}</span>
