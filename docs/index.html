@@ -6,7 +6,7 @@
     <title>Clover Clothes - Fashion & Fabric Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/Bespoke-attire/static/css/style.css" rel="stylesheet">
     <script>
         // Load products data for search functionality
         let allProducts = [];
@@ -100,7 +100,7 @@
             <p class="lead mb-4">Your one-stop shop for fabrics, fashion design, and tailoring services</p>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form action="http://localhost:8000/search" method="GET">
+                    <form action="/Bespoke-attire/search" method="GET">
                         <div class="search-bar">
                             <input type="text" name="q" class="form-control form-control-lg" placeholder="What are you looking for?">
                             <button type="submit" class="btn">
@@ -118,12 +118,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-center flex-wrap gap-2">
-                    <a href="http://localhost:8000/products" class="btn btn-outline-success category-filter-btn active">All Products</a>
-                    <a href="http://localhost:8000/products?category=fabrics" class="btn btn-outline-success category-filter-btn ">Fabrics</a>
-                    <a href="http://localhost:8000/products?category=clothes" class="btn btn-outline-success category-filter-btn ">Clothes</a>
-                    <a href="http://localhost:8000/products?category=design" class="btn btn-outline-success category-filter-btn ">Fashion Design</a>
-                    <a href="http://localhost:8000/products?category=cartooning" class="btn btn-outline-success category-filter-btn ">Cartooning</a>
-                    <a href="http://localhost:8000/products?category=tailoring" class="btn btn-outline-success category-filter-btn ">Tailoring</a>
+                    <a href="/Bespoke-attire/products" class="btn btn-outline-success category-filter-btn active">All Products</a>
+                    <a href="/Bespoke-attire/products?category=fabrics" class="btn btn-outline-success category-filter-btn ">Fabrics</a>
+                    <a href="/Bespoke-attire/products?category=clothes" class="btn btn-outline-success category-filter-btn ">Clothes</a>
+                    <a href="/Bespoke-attire/products?category=design" class="btn btn-outline-success category-filter-btn ">Fashion Design</a>
+                    <a href="/Bespoke-attire/products?category=cartooning" class="btn btn-outline-success category-filter-btn ">Cartooning</a>
+                    <a href="/Bespoke-attire/products?category=tailoring" class="btn btn-outline-success category-filter-btn ">Tailoring</a>
                 </div>
             </div>
         </div>
@@ -136,13 +136,13 @@
             
             <div class="col-md-4 mb-4">
                 <div class="card product-card" data-category="fabrics" data-price="15.99">
-                    <img src="/static/images/placeholder.jpg" class="card-img-top product-image" alt="Premium Cotton Fabric">
+                    <img src="/Bespoke-attire/static/images/placeholder.jpg" class="card-img-top product-image" alt="Premium Cotton Fabric">
                     <div class="card-body">
                         <h5 class="card-title">Premium Cotton Fabric</h5>
                         <p class="card-text">High-quality fabrics for your needs.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="h5 mb-0">$15.99</span>
-                            <form method="POST" action="/add-to-cart/1">
+                            <form method="POST" action="/Bespoke-attire/add-to-cart/1">
                                 <button type="submit" class="btn btn-success">
                                     Add to Cart
                                 </button>
@@ -154,13 +154,13 @@
             
             <div class="col-md-4 mb-4">
                 <div class="card product-card" data-category="design" data-price="99.99">
-                    <img src="/static/images/placeholder.jpg" class="card-img-top product-image" alt="Custom Dress Design">
+                    <img src="/Bespoke-attire/static/images/placeholder.jpg" class="card-img-top product-image" alt="Custom Dress Design">
                     <div class="card-body">
                         <h5 class="card-title">Custom Dress Design</h5>
                         <p class="card-text">High-quality design for your needs.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="h5 mb-0">$99.99</span>
-                            <form method="POST" action="/add-to-cart/2">
+                            <form method="POST" action="/Bespoke-attire/add-to-cart/2">
                                 <button type="submit" class="btn btn-success">
                                     Book Now
                                 </button>
@@ -172,13 +172,13 @@
             
             <div class="col-md-4 mb-4">
                 <div class="card product-card" data-category="cartooning" data-price="49.99">
-                    <img src="/static/images/placeholder.jpg" class="card-img-top product-image" alt="Character Illustration">
+                    <img src="/Bespoke-attire/static/images/placeholder.jpg" class="card-img-top product-image" alt="Character Illustration">
                     <div class="card-body">
                         <h5 class="card-title">Character Illustration</h5>
                         <p class="card-text">High-quality cartooning for your needs.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="h5 mb-0">$49.99</span>
-                            <form method="POST" action="/add-to-cart/3">
+                            <form method="POST" action="/Bespoke-attire/add-to-cart/3">
                                 <button type="submit" class="btn btn-success">
                                     Add to Cart
                                 </button>
@@ -190,13 +190,13 @@
             
             <div class="col-md-4 mb-4">
                 <div class="card product-card" data-category="tailoring" data-price="149.99">
-                    <img src="/static/images/placeholder.jpg" class="card-img-top product-image" alt="Suit Tailoring">
+                    <img src="/Bespoke-attire/static/images/placeholder.jpg" class="card-img-top product-image" alt="Suit Tailoring">
                     <div class="card-body">
                         <h5 class="card-title">Suit Tailoring</h5>
                         <p class="card-text">High-quality tailoring for your needs.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="h5 mb-0">$149.99</span>
-                            <form method="POST" action="/add-to-cart/4">
+                            <form method="POST" action="/Bespoke-attire/add-to-cart/4">
                                 <button type="submit" class="btn btn-success">
                                     Book Now
                                 </button>
@@ -208,13 +208,13 @@
             
             <div class="col-md-4 mb-4">
                 <div class="card product-card" data-category="clothes" data-price="199.99">
-                    <img src="/static/images/placeholder.jpg" class="card-img-top product-image" alt="Designer Clothes">
+                    <img src="/Bespoke-attire/static/images/placeholder.jpg" class="card-img-top product-image" alt="Designer Clothes">
                     <div class="card-body">
                         <h5 class="card-title">Designer Clothes</h5>
                         <p class="card-text">High-quality clothes for your needs.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="h5 mb-0">$199.99</span>
-                            <form method="POST" action="/add-to-cart/5">
+                            <form method="POST" action="/Bespoke-attire/add-to-cart/5">
                                 <button type="submit" class="btn btn-success">
                                     Add to Cart
                                 </button>

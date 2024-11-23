@@ -7,8 +7,8 @@ from jinja2 import Environment, FileSystemLoader
 DOCS_DIR = "docs"
 STATIC_DIR = "static"
 TEMPLATES_DIR = "templates"
-# Use empty base URL for local development
-BASE_URL = ""
+# Use repository name for GitHub Pages
+BASE_URL = "/Bespoke-attire"
 
 # Sample product data
 products = [
@@ -80,13 +80,14 @@ def generate_products_json():
 def url_for(endpoint, **kwargs):
     """Simulate FastAPI's url_for function for static site generation"""
     if endpoint == 'static':
-        return f"/{endpoint}/{kwargs['path']}"
-    return "/"
+        return f"{BASE_URL}/static/{kwargs['path']}"
+    return BASE_URL
 
 def render_template(template_name, context, output_path):
     """Render a template with given context to output path"""
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
     env.globals['url_for'] = url_for
+    env.globals['BASE_URL'] = BASE_URL  # Make BASE_URL available in templates
     template = env.get_template(template_name)
     html = template.render(**context)
     
