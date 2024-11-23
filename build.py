@@ -7,7 +7,8 @@ from jinja2 import Environment, FileSystemLoader
 DOCS_DIR = "docs"
 STATIC_DIR = "static"
 TEMPLATES_DIR = "templates"
-BASE_URL = "/Bespoke-attire"
+# Use empty base URL for local development
+BASE_URL = ""
 
 # Sample product data
 products = [
@@ -17,7 +18,7 @@ products = [
         "description": "High-quality cotton fabric perfect for summer wear",
         "category": "fabrics",
         "price": 15.99,
-        "image": f"{BASE_URL}/static/images/placeholder.jpg"
+        "image": "/static/images/placeholder.jpg"
     },
     {
         "id": 2,
@@ -25,7 +26,7 @@ products = [
         "description": "Professional dress design consultation",
         "category": "design",
         "price": 99.99,
-        "image": f"{BASE_URL}/static/images/placeholder.jpg"
+        "image": "/static/images/placeholder.jpg"
     },
     {
         "id": 3,
@@ -33,7 +34,7 @@ products = [
         "description": "Custom character design and illustration",
         "category": "cartooning",
         "price": 49.99,
-        "image": f"{BASE_URL}/static/images/placeholder.jpg"
+        "image": "/static/images/placeholder.jpg"
     },
     {
         "id": 4,
@@ -41,7 +42,7 @@ products = [
         "description": "Professional suit alteration service",
         "category": "tailoring",
         "price": 149.99,
-        "image": f"{BASE_URL}/static/images/placeholder.jpg"
+        "image": "/static/images/placeholder.jpg"
     },
     {
         "id": 5,
@@ -49,7 +50,7 @@ products = [
         "description": "Ready-to-wear designer clothing collection",
         "category": "clothes",
         "price": 199.99,
-        "image": f"{BASE_URL}/static/images/placeholder.jpg"
+        "image": "/static/images/placeholder.jpg"
     }
 ]
 
@@ -73,8 +74,8 @@ def generate_products_json():
 def url_for(endpoint, **kwargs):
     """Simulate FastAPI's url_for function for static site generation"""
     if endpoint == 'static':
-        return f"{BASE_URL}/static/{kwargs['path']}"
-    return f"{BASE_URL}/"
+        return f"/static/{kwargs['path']}"
+    return "/"
 
 def render_template(template_name, context, output_path):
     """Render a template with given context to output path"""

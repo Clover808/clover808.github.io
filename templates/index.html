@@ -8,7 +8,7 @@
             <p class="lead mb-4">Your one-stop shop for fabrics, fashion design, and tailoring services</p>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form action="/search" method="GET">
+                    <form action="http://localhost:8000/search" method="GET">
                         <div class="search-bar">
                             <input type="text" name="q" class="form-control form-control-lg" placeholder="What are you looking for?">
                             <button type="submit" class="btn">
@@ -26,12 +26,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-center flex-wrap gap-2">
-                    <a href="/products" class="btn btn-outline-success category-filter-btn {% if not category %}active{% endif %}">All Products</a>
-                    <a href="/products?category=fabrics" class="btn btn-outline-success category-filter-btn {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
-                    <a href="/products?category=clothes" class="btn btn-outline-success category-filter-btn {% if category == 'clothes' %}active{% endif %}">Clothes</a>
-                    <a href="/products?category=design" class="btn btn-outline-success category-filter-btn {% if category == 'design' %}active{% endif %}">Fashion Design</a>
-                    <a href="/products?category=cartooning" class="btn btn-outline-success category-filter-btn {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
-                    <a href="/products?category=tailoring" class="btn btn-outline-success category-filter-btn {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
+                    <a href="http://localhost:8000/products" class="btn btn-outline-success category-filter-btn {% if not category %}active{% endif %}">All Products</a>
+                    <a href="http://localhost:8000/products?category=fabrics" class="btn btn-outline-success category-filter-btn {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
+                    <a href="http://localhost:8000/products?category=clothes" class="btn btn-outline-success category-filter-btn {% if category == 'clothes' %}active{% endif %}">Clothes</a>
+                    <a href="http://localhost:8000/products?category=design" class="btn btn-outline-success category-filter-btn {% if category == 'design' %}active{% endif %}">Fashion Design</a>
+                    <a href="http://localhost:8000/products?category=cartooning" class="btn btn-outline-success category-filter-btn {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
+                    <a href="http://localhost:8000/products?category=tailoring" class="btn btn-outline-success category-filter-btn {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
                 </div>
             </div>
         </div>
