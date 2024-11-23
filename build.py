@@ -59,12 +59,18 @@ def ensure_dir(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
+def clean_directory(directory):
+    """Completely remove and recreate a directory"""
+    if os.path.exists(directory):
+        print(f"Cleaning {directory}...")
+        shutil.rmtree(directory)
+    os.makedirs(directory)
+
 def copy_static_files():
     """Copy static files to docs directory"""
-    docs_static = os.path.join(DOCS_DIR, "static")
-    if os.path.exists(docs_static):
-        shutil.rmtree(docs_static)
-    shutil.copytree(STATIC_DIR, docs_static)
+    static_dest = os.path.join(DOCS_DIR, "static")
+    if os.path.exists(STATIC_DIR):
+        shutil.copytree(STATIC_DIR, static_dest, dirs_exist_ok=True)
 
 def generate_products_json():
     """Generate products.json file"""
@@ -74,19 +80,14 @@ def generate_products_json():
 def url_for(endpoint, **kwargs):
     """Simulate FastAPI's url_for function for static site generation"""
     if endpoint == 'static':
-        return f"/static/{kwargs['path']}"
+        return f"/{endpoint}/{kwargs['path']}"
     return "/"
 
 def render_template(template_name, context, output_path):
     """Render a template with given context to output path"""
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR))
+    env.globals['url_for'] = url_for
     template = env.get_template(template_name)
-    
-    # Add BASE_URL and url_for to context
-    context["BASE_URL"] = BASE_URL
-    context["url_for"] = url_for
-    context["cart_count"] = 0  # Default cart count for static site
-    
     html = template.render(**context)
     
     with open(output_path, "w", encoding="utf-8") as f:
@@ -94,21 +95,25 @@ def render_template(template_name, context, output_path):
 
 def build_site():
     """Build the static site"""
-    # Clean up existing docs directory
-    if os.path.exists(DOCS_DIR):
-        shutil.rmtree(DOCS_DIR)
+    print("Starting clean build...")
     
-    # Ensure docs directory exists
-    ensure_dir(DOCS_DIR)
-    ensure_dir(os.path.join(DOCS_DIR, "products"))
+    # Clean and recreate docs directory
+    clean_directory(DOCS_DIR)
+    
+    # Create products directory
+    products_dir = os.path.join(DOCS_DIR, "products")
+    ensure_dir(products_dir)
     
     # Copy static files
+    print("Copying static files...")
     copy_static_files()
     
     # Generate products.json
+    print("Generating products.json...")
     generate_products_json()
     
     # Render index page
+    print("Building index page...")
     render_template(
         "index.html",
         {"products": products},
@@ -116,6 +121,7 @@ def build_site():
     )
     
     # Render main products page
+    print("Building products pages...")
     render_template(
         "products.html",
         {"products": products, "category": None},
@@ -125,6 +131,7 @@ def build_site():
     # Render category pages
     categories = set(p["category"] for p in products)
     for category in categories:
+        print(f"Building category page: {category}")
         # Create category directory
         category_dir = os.path.join(DOCS_DIR, "products", category)
         ensure_dir(category_dir)
@@ -146,6 +153,7 @@ def build_site():
             os.path.join(category_dir, "index.html")
         )
 
+    print("Build completed successfully!")
+
 if __name__ == "__main__":
     build_site()
-    print("Static site built successfully in docs directory")
