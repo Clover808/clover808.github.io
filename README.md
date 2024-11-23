@@ -1,94 +1,109 @@
 # Clover Clothes - Bespoke Attire
 
-## Day 2: Managing and Updating the Site
+A static e-commerce website for Clover Clothes, specializing in fabrics, fashion design, and tailoring services.
 
-This guide is for maintainers who need to update the Clover Clothes website. Our site is hosted on GitHub Pages and uses a static site generator for deployment.
+## Project Structure
 
-### Quick Start Guide
+```
+CloverClothes-FastAPI/
+├── build.py              # Static site generator script
+├── docs/                 # Generated static site (for GitHub Pages)
+├── static/              
+│   ├── css/             # Stylesheets
+│   ├── js/              # JavaScript files
+│   └── images/          # Image assets
+├── templates/           
+│   ├── base.html        # Base template
+│   └── index.html       # Home page template
+└── requirements.txt     # Python dependencies
+```
 
-1. **Clone the Repository** (First time only)
+## Development Setup
+
+1. Clone the repository:
    ```bash
    git clone https://github.com/Clover808/Bespoke-attire.git
    cd Bespoke-attire
    ```
 
-2. **Set Up Python Environment** (First time only)
+2. Create and activate a virtual environment:
    ```bash
    python -m venv venv
-   .\venv\Scripts\activate  # Windows
+   # Windows
+   .\venv\Scripts\activate
+   # Unix/MacOS
+   source venv/bin/activate
+   ```
+
+3. Install dependencies:
+   ```bash
    pip install -r requirements.txt
    ```
 
-### Making Updates to the Site
+## Local Development
 
-1. **Activate the Environment**
+1. Start the FastAPI development server:
    ```bash
-   .\venv\Scripts\activate  # Windows
+   uvicorn main:app --reload
    ```
 
-2. **Make Your Changes**
-   - Edit files in `templates/` directory
-   - Update static assets in `static/` directory
-   - Test locally if needed: `uvicorn main:app --reload`
+2. Visit `http://localhost:8000` in your browser
 
-3. **Build the Site**
+## Building for GitHub Pages
+
+1. Make your changes in the `templates/` directory
+
+2. Run the build script to generate static files:
    ```bash
    python build.py
    ```
-   This generates static files in the `docs/` directory for GitHub Pages.
 
-4. **Review Your Changes**
-   - Check the generated files in `docs/`
-   - Ensure all links use `{{ BASE_URL }}` prefix
-   - Verify all assets are included
-
-5. **Commit and Push**
+3. Commit and push your changes:
    ```bash
    git add .
-   git commit -m "Description of your changes"
+   git commit -m "Your commit message"
    git push
    ```
 
-6. **Clean Up**
-   ```bash
-   deactivate  # Exit virtual environment
-   # Use Task Manager to close any remaining python.exe processes if needed
-   ```
+4. GitHub Pages will automatically deploy from the `docs/` folder
 
-### Important Notes
+## Important Notes for Maintainers
 
-#### URL Structure
-- All internal links must use `{{ BASE_URL }}` prefix
+### Asset Paths
+- All asset paths in templates must use `{{ BASE_URL }}` prefix
 - Example: `{{ BASE_URL }}/static/css/style.css`
 - The `BASE_URL` is set to `/Bespoke-attire` in `build.py`
 
-#### Common Issues
-1. **Missing Assets on GitHub Pages**
-   - Ensure files are in `docs/` directory
-   - Check all paths use `{{ BASE_URL }}`
-   - Run `build.py` before committing
+### Navigation Links
+- All internal links should use `{{ BASE_URL }}` prefix
+- Example: `<a href="{{ BASE_URL }}/products">Products</a>`
 
-2. **Python Processes**
-   - Close all terminals when done
-   - Use Task Manager to end lingering `python.exe` processes
+### Adding New Pages
+1. Create new template in `templates/`
+2. Update `build.py` to generate the static version
+3. Run `python build.py`
+4. Commit and push changes
 
-### File Structure
-```
-CloverClothes-FastAPI/
-├── build.py              # Static site generator
-├── docs/                 # Generated site (DO NOT edit directly)
-├── static/              
-│   ├── css/             # Stylesheets
-│   ├── js/              # JavaScript
-│   └── images/          # Images
-└── templates/           
-    ├── base.html        # Main template
-    └── index.html       # Home page
-```
+### Troubleshooting
+- If styles don't match between local and GitHub Pages:
+  1. Check asset paths in templates
+  2. Ensure `build.py` ran successfully
+  3. Verify all files are in `docs/` directory
+  4. Check browser console for 404 errors
 
-### Need Help?
-- Check GitHub Issues for known problems
-- Create a new issue if you encounter problems
-- Contact the main maintainers through GitHub
+### Managing Python Processes
+- To stop local development server:
+  1. Press `Ctrl+C` in the terminal
+  2. Or use Task Manager to end `python.exe` processes
+- Always deactivate virtual environment when done:
+  ```bash
+  deactivate
+  ```
 
-Remember: Always build and test locally before pushing to GitHub Pages!
+## Contact
+
+For questions or issues, please open a GitHub issue or contact the maintainers.
+
+## License
+
+[Add your license information here]
