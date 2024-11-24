@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const productsContainer = document.querySelector('.products-container');
             
             // Search functionality
-            const searchForm = document.querySelector('form[action*="search"]');
+            const searchForm = document.querySelector('form');
             if (searchForm) {
                 searchForm.addEventListener('submit', function(e) {
                     e.preventDefault();
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             categoryButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const category = this.getAttribute('href').split('category=')[1];
+                    const category = this.getAttribute('data-category');
                     const filteredProducts = category ? 
                         products.filter(product => product.category === category) :
                         products;

@@ -7,7 +7,6 @@ from jinja2 import Environment, FileSystemLoader
 DOCS_DIR = "docs"
 STATIC_DIR = "static"
 TEMPLATES_DIR = "templates"
-# Remove BASE_URL as site will serve from root
 
 # Sample product data
 products = [
@@ -77,10 +76,11 @@ def generate_products_json():
         json.dump(products, f, indent=2)
 
 def url_for(endpoint, **kwargs):
-    """Simulate FastAPI's url_for function for static site generation"""
+    """Generate URLs for static site"""
     if endpoint == 'static':
-        return f"/static/{kwargs['path']}"
-    return "/"
+        path = kwargs.get('path', '')
+        return f'/static/{path}'
+    return f'/{endpoint}'
 
 def render_template(template_name, context, output_path):
     """Render a template with given context to output path"""
