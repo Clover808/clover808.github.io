@@ -120,7 +120,7 @@ def build_site():
     print("Building index page...")
     render_template(
         "index.html",
-        {"products": products},
+        {"products": products[:6], "is_static": True},  
         os.path.join(DOCS_DIR, "index.html")
     )
     
