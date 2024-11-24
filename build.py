@@ -128,7 +128,7 @@ def build_site():
     print("Building products pages...")
     render_template(
         "products.html",
-        {"products": products, "category": None},
+        {"products": products, "category": None, "is_static": True},
         os.path.join(DOCS_DIR, "products", "index.html")
     )
     
@@ -136,28 +136,15 @@ def build_site():
     categories = set(p["category"] for p in products)
     for category in categories:
         print(f"Building category page: {category}")
-        # Create category directory
-        category_dir = os.path.join(DOCS_DIR, "products", category)
-        ensure_dir(category_dir)
-        
         # Filter products for this category
         category_products = [p for p in products if p["category"] == category]
         
         # Generate category page
         render_template(
             "products.html",
-            {"products": category_products, "category": category},
+            {"products": category_products, "category": category, "is_static": True},
             os.path.join(DOCS_DIR, "products", f"{category}.html")
         )
-        
-        # Generate category index page
-        render_template(
-            "products.html",
-            {"products": category_products, "category": category},
-            os.path.join(category_dir, "index.html")
-        )
-
-    print("Build completed successfully!")
 
 if __name__ == "__main__":
     build_site()
