@@ -1,0 +1,51 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Premium Cotton Fabric",
+      "description": "High-quality cotton fabric perfect for summer wear",
+      "category": "fabrics",
+      "price": 15.99,
+      "image": "/static/images/placeholder.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Custom Dress Design",
+      "description": "Professional dress design consultation",
+      "category": "design",
+      "price": 99.99,
+      "image": "/static/images/placeholder.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Character Illustration",
+      "description": "Custom character design and illustration",
+      "category": "cartooning",
+      "price": 49.99,
+      "image": "/static/images/placeholder.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Suit Tailoring",
+      "description": "Professional suit alteration service",
+      "category": "tailoring",
+      "price": 149.99,
+      "image": "/static/images/placeholder.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Designer Clothes",
+      "description": "Ready-to-wear designer clothing collection",
+      "category": "clothes",
+      "price": 199.99,
+      "image": "/static/images/placeholder.jpg"
+    }
+  ],
+  "categories": [
+    "fabrics",
+    "design",
+    "cartooning",
+    "tailoring",
+    "clothes"
+  ]
+}

@@ -8,7 +8,7 @@
             <p class="lead mb-4">Your one-stop shop for fabrics, fashion design, and tailoring services</p>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form action="{{ BASE_URL }}/search" method="GET">
+                    <form action="/search" method="GET">
                         <div class="search-bar">
                             <input type="text" name="q" class="form-control form-control-lg" placeholder="What are you looking for?">
                             <button type="submit" class="btn">
@@ -26,12 +26,12 @@
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-center flex-wrap gap-2">
-                    <a href="{{ BASE_URL }}/products" class="btn btn-outline-success category-filter-btn {% if not category %}active{% endif %}">All Products</a>
-                    <a href="{{ BASE_URL }}/products?category=fabrics" class="btn btn-outline-success category-filter-btn {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
-                    <a href="{{ BASE_URL }}/products?category=clothes" class="btn btn-outline-success category-filter-btn {% if category == 'clothes' %}active{% endif %}">Clothes</a>
-                    <a href="{{ BASE_URL }}/products?category=design" class="btn btn-outline-success category-filter-btn {% if category == 'design' %}active{% endif %}">Fashion Design</a>
-                    <a href="{{ BASE_URL }}/products?category=cartooning" class="btn btn-outline-success category-filter-btn {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
-                    <a href="{{ BASE_URL }}/products?category=tailoring" class="btn btn-outline-success category-filter-btn {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
+                    <a href="/products" class="btn btn-outline-success category-filter-btn {% if not category %}active{% endif %}">All Products</a>
+                    <a href="/products?category=fabrics" class="btn btn-outline-success category-filter-btn {% if category == 'fabrics' %}active{% endif %}">Fabrics</a>
+                    <a href="/products?category=clothes" class="btn btn-outline-success category-filter-btn {% if category == 'clothes' %}active{% endif %}">Clothes</a>
+                    <a href="/products?category=design" class="btn btn-outline-success category-filter-btn {% if category == 'design' %}active{% endif %}">Fashion Design</a>
+                    <a href="/products?category=cartooning" class="btn btn-outline-success category-filter-btn {% if category == 'cartooning' %}active{% endif %}">Cartooning</a>
+                    <a href="/products?category=tailoring" class="btn btn-outline-success category-filter-btn {% if category == 'tailoring' %}active{% endif %}">Tailoring</a>
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                         <p class="card-text">High-quality {{ product.category }} for your needs.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="h5 mb-0">${{ "%.2f"|format(product.price) }}</span>
-                            <form method="POST" action="{{ BASE_URL }}/add-to-cart/{{ product.id }}">
+                            <form method="POST" action="/add-to-cart/{{ product.id }}">
                                 <button type="submit" class="btn btn-success">
                                     {% if product.category in ['design', 'tailoring'] %}Book Now{% else %}Add to Cart{% endif %}
                                 </button>
