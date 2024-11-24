@@ -8,9 +8,9 @@
             <p class="lead mb-4">Your one-stop shop for fabrics, fashion design, and tailoring services</p>
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <form action="/search" method="GET">
+                    <form class="search-form" onsubmit="return handleHeroSearch(event)">
                         <div class="search-bar">
-                            <input type="text" name="q" class="form-control form-control-lg" placeholder="What are you looking for?">
+                            <input type="text" name="q" class="form-control form-control-lg" placeholder="What are you looking for?" id="hero-search-input">
                             <button type="submit" class="btn">
                                 <i class="fas fa-search search-icon"></i>
                             </button>
@@ -38,9 +38,9 @@
     </section>
 
     <!-- Featured Products -->
-    <section class="container mb-5">
+    <section class="container mb-5" id="featured-products">
         <h2 class="text-center mb-4">Featured Products</h2>
-        <div class="row">
+        <div class="row" id="products-container">
             {% for product in products %}
             <div class="col-md-4 mb-4">
                 <div class="card product-card" data-category="{{ product.category }}" data-price="{{ product.price }}">
@@ -62,4 +62,32 @@
             {% endfor %}
         </div>
     </section>
+
+    <script>
+        function handleHeroSearch(e) {
+            e.preventDefault();
+            const query = document.getElementById('hero-search-input').value.toLowerCase().trim();
+            const productsContainer = document.getElementById('products-container');
+            const productCards = productsContainer.querySelectorAll('.product-card');
+            let foundAny = false;
+
+            productCards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-text').textContent.toLowerCase();
+                
+                if (title.includes(query) || description.includes(query)) {
+                    card.style.display = '';
+                    foundAny = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (foundAny) {
+                document.getElementById('featured-products').scrollIntoView({ behavior: 'smooth' });
+            }
+
+            return false;
+        }
+    </script>
 {% endblock %}
