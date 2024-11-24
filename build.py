@@ -79,8 +79,13 @@ def url_for(endpoint, **kwargs):
     """Generate URLs for static site"""
     if endpoint == 'static':
         path = kwargs.get('path', '')
-        return f'/static/{path}'
-    return f'/{endpoint}'
+        return f'./static/{path}'
+    elif endpoint == 'products':
+        category = kwargs.get('category')
+        if category:
+            return f'./products/{category}.html'
+        return './products/index.html'
+    return './' if endpoint == 'home' else f'./{endpoint}'
 
 def render_template(template_name, context, output_path):
     """Render a template with given context to output path"""
